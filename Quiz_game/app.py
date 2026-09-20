@@ -15,6 +15,9 @@ app = Flask(__name__)
 app.secret_key = "quizmaster_change_this_secret_key"
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 DB_CONFIG = {
     "host": os.getenv("DB_HOST"),
