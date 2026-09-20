@@ -1,0 +1,425 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Edit Question — Admin — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section narrow-section">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="admin-head">
+
+        <div>
+
+            <span class="eyebrow">
+                QUESTION MANAGEMENT
+            </span>
+
+            <h1>
+                Edit Question
+            </h1>
+
+            <p class="muted">
+                Update the question and its answer options.
+            </p>
+
+        </div>
+
+
+        <a
+            class="back-link"
+            href="{{ url_for('admin_manage_questions') }}">
+
+            ← Questions
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         EDIT FORM
+    ================================================== -->
+
+    <div class="form-card question-form-card">
+
+
+        <div class="card-heading">
+
+            <div class="card-heading-icon">
+                ✎
+            </div>
+
+
+            <div>
+
+                <span class="eyebrow">
+                    EDIT QUESTION #{{ question.id }}
+                </span>
+
+                <h2>
+                    Update MCQ
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <p class="muted">
+            Make your changes and save the updated question.
+        </p>
+
+
+
+        <form
+            method="POST"
+            class="form"
+            autocomplete="off">
+
+
+            <!-- =================================================
+                 TEST
+            ================================================== -->
+
+            <label>
+
+                <span>
+                    Test
+                </span>
+
+
+                <select
+                    name="test_id"
+                    required>
+
+
+                    {% for test in tests %}
+
+
+                    <option
+                        value="{{ test.id }}"
+                        {% if test.id == question.test_id %}
+                            selected
+                        {% endif %}>
+
+                        {{ test.category_name }}
+                        —
+                        {{ test.test_name }}
+
+                    </option>
+
+
+                    {% endfor %}
+
+
+                </select>
+
+            </label>
+
+
+
+            <!-- =================================================
+                 QUESTION
+            ================================================== -->
+
+            <label>
+
+                <span>
+                    Question
+                </span>
+
+
+                <textarea
+                    name="question"
+                    rows="5"
+                    maxlength="2000"
+                    required>{{ question.question }}</textarea>
+
+            </label>
+
+
+
+            <!-- =================================================
+                 OPTIONS
+            ================================================== -->
+
+            <div class="option-section">
+
+
+                <div class="form-section-title">
+
+                    <span>
+                        ANSWER OPTIONS
+                    </span>
+
+                    <small>
+                        Update all four choices if required.
+                    </small>
+
+                </div>
+
+
+                <div class="option-grid">
+
+
+                    <!-- OPTION A -->
+
+                    <label class="admin-option">
+
+                        <span>
+                            Option A
+                        </span>
+
+
+                        <div class="admin-option-input">
+
+                            <span class="option-letter">
+                                A
+                            </span>
+
+
+                            <input
+                                type="text"
+                                name="option_a"
+                                value="{{ question.option_a }}"
+                                maxlength="500"
+                                required>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <!-- OPTION B -->
+
+                    <label class="admin-option">
+
+                        <span>
+                            Option B
+                        </span>
+
+
+                        <div class="admin-option-input">
+
+                            <span class="option-letter">
+                                B
+                            </span>
+
+
+                            <input
+                                type="text"
+                                name="option_b"
+                                value="{{ question.option_b }}"
+                                maxlength="500"
+                                required>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <!-- OPTION C -->
+
+                    <label class="admin-option">
+
+                        <span>
+                            Option C
+                        </span>
+
+
+                        <div class="admin-option-input">
+
+                            <span class="option-letter">
+                                C
+                            </span>
+
+
+                            <input
+                                type="text"
+                                name="option_c"
+                                value="{{ question.option_c }}"
+                                maxlength="500"
+                                required>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <!-- OPTION D -->
+
+                    <label class="admin-option">
+
+                        <span>
+                            Option D
+                        </span>
+
+
+                        <div class="admin-option-input">
+
+                            <span class="option-letter">
+                                D
+                            </span>
+
+
+                            <input
+                                type="text"
+                                name="option_d"
+                                value="{{ question.option_d }}"
+                                maxlength="500"
+                                required>
+
+                        </div>
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CORRECT ANSWER
+            ================================================== -->
+
+            <label>
+
+                <span>
+                    Correct Answer
+                </span>
+
+
+                <select
+                    name="correct_answer"
+                    required>
+
+
+                    <option
+                        value="A"
+                        {% if question.correct_answer == 'A' %}
+                            selected
+                        {% endif %}>
+
+                        Option A
+
+                    </option>
+
+
+                    <option
+                        value="B"
+                        {% if question.correct_answer == 'B' %}
+                            selected
+                        {% endif %}>
+
+                        Option B
+
+                    </option>
+
+
+                    <option
+                        value="C"
+                        {% if question.correct_answer == 'C' %}
+                            selected
+                        {% endif %}>
+
+                        Option C
+
+                    </option>
+
+
+                    <option
+                        value="D"
+                        {% if question.correct_answer == 'D' %}
+                            selected
+                        {% endif %}>
+
+                        Option D
+
+                    </option>
+
+
+                </select>
+
+            </label>
+
+
+
+            <!-- =================================================
+                 WARNING
+            ================================================== -->
+
+            <div class="form-hint warning-hint">
+
+                <span>
+                    ⚠️
+                </span>
+
+                <p>
+                    If you change the options, make sure
+                    the selected correct answer still matches
+                    the correct option.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ACTIONS
+            ================================================== -->
+
+            <div class="form-actions">
+
+
+                <a
+                    class="btn btn-ghost"
+                    href="{{ url_for(
+                        'admin_manage_questions'
+                    ) }}">
+
+                    Cancel
+
+                </a>
+
+
+                <button
+                    class="btn btn-primary"
+                    type="submit">
+
+                    Save Changes
+
+                    <span>
+                        ✓
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,496 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section admin-dashboard">
+
+
+    <!-- =================================================
+         DASHBOARD HEADER
+    ================================================== -->
+
+    <div class="admin-head">
+
+        <div>
+
+            <span class="eyebrow">
+                CONTROL CENTER
+            </span>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p class="muted">
+                Welcome back,
+                <strong>{{ session.admin_username }}</strong>.
+                Manage your QuizMaster platform from here.
+            </p>
+
+        </div>
+
+
+        <div class="admin-head-actions">
+
+            <a
+                class="btn btn-ghost"
+                href="{{ url_for('home') }}">
+
+                View Website
+                <span>↗</span>
+
+            </a>
+
+
+            <a
+                class="btn btn-danger"
+                href="{{ url_for('admin_logout') }}">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         STATISTICS
+    ================================================== -->
+
+    <div class="stats-grid">
+
+
+        <!-- USERS -->
+
+        <div class="stat-card">
+
+            <div class="stat-card-top">
+
+                <span>
+                    USERS
+                </span>
+
+                <span class="stat-icon">
+                    👥
+                </span>
+
+            </div>
+
+
+            <strong>
+                {{ stats.users }}
+            </strong>
+
+
+            <small>
+                Registered accounts
+            </small>
+
+        </div>
+
+
+
+        <!-- CATEGORIES -->
+
+        <div class="stat-card">
+
+            <div class="stat-card-top">
+
+                <span>
+                    CATEGORIES
+                </span>
+
+                <span class="stat-icon">
+                    📚
+                </span>
+
+            </div>
+
+
+            <strong>
+                {{ stats.categories }}
+            </strong>
+
+
+            <small>
+                Quiz subjects
+            </small>
+
+        </div>
+
+
+
+        <!-- TESTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-card-top">
+
+                <span>
+                    TESTS
+                </span>
+
+                <span class="stat-icon">
+                    🎯
+                </span>
+
+            </div>
+
+
+            <strong>
+                {{ stats.tests }}
+            </strong>
+
+
+            <small>
+                Available tests
+            </small>
+
+        </div>
+
+
+
+        <!-- QUESTIONS -->
+
+        <div class="stat-card">
+
+            <div class="stat-card-top">
+
+                <span>
+                    QUESTIONS
+                </span>
+
+                <span class="stat-icon">
+                    ❓
+                </span>
+
+            </div>
+
+
+            <strong>
+                {{ stats.questions }}
+            </strong>
+
+
+            <small>
+                Total questions
+            </small>
+
+        </div>
+
+
+
+        <!-- ATTEMPTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-card-top">
+
+                <span>
+                    ATTEMPTS
+                </span>
+
+                <span class="stat-icon">
+                    📊
+                </span>
+
+            </div>
+
+
+            <strong>
+                {{ stats.attempts }}
+            </strong>
+
+
+            <small>
+                Quiz submissions
+            </small>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         QUICK ACTIONS
+    ================================================== -->
+
+    <div class="section-head admin-section-head">
+
+        <div>
+
+            <span class="eyebrow">
+                QUICK ACTIONS
+            </span>
+
+            <h2>
+                Manage Content
+            </h2>
+
+        </div>
+
+        <p>
+            Quickly access the tools you use most.
+        </p>
+
+    </div>
+
+
+
+    <div class="admin-actions">
+
+
+        <!-- ADD CATEGORY -->
+
+        <a
+            class="admin-action"
+            href="{{ url_for('admin_categories') }}">
+
+            <span class="admin-action-icon">
+                ＋
+            </span>
+
+            <span>
+
+                <strong>
+                    Add Category
+                </strong>
+
+                <small>
+                    Create a new quiz subject
+                </small>
+
+            </span>
+
+            <b>
+                →
+            </b>
+
+        </a>
+
+
+
+        <!-- ADD TEST -->
+
+        <a
+            class="admin-action"
+            href="{{ url_for('admin_tests') }}">
+
+            <span class="admin-action-icon">
+                ＋
+            </span>
+
+            <span>
+
+                <strong>
+                    Add Test
+                </strong>
+
+                <small>
+                    Create a test inside a category
+                </small>
+
+            </span>
+
+            <b>
+                →
+            </b>
+
+        </a>
+
+
+
+        <!-- ADD QUESTION -->
+
+        <a
+            class="admin-action"
+            href="{{ url_for('admin_questions') }}">
+
+            <span class="admin-action-icon">
+                ＋
+            </span>
+
+            <span>
+
+                <strong>
+                    Add Question
+                </strong>
+
+                <small>
+                    Add MCQ questions to a test
+                </small>
+
+            </span>
+
+            <b>
+                →
+            </b>
+
+        </a>
+
+
+
+        <!-- MANAGE QUESTIONS -->
+
+        <a
+            class="admin-action"
+            href="{{ url_for('admin_manage_questions') }}">
+
+            <span class="admin-action-icon">
+                ☷
+            </span>
+
+            <span>
+
+                <strong>
+                    Manage Questions
+                </strong>
+
+                <small>
+                    Edit or delete questions
+                </small>
+
+            </span>
+
+            <b>
+                →
+            </b>
+
+        </a>
+
+
+
+        <!-- USERS -->
+
+        <a
+            class="admin-action"
+            href="{{ url_for('admin_users') }}">
+
+            <span class="admin-action-icon">
+                ♙
+            </span>
+
+            <span>
+
+                <strong>
+                    View Users
+                </strong>
+
+                <small>
+                    See registered accounts
+                </small>
+
+            </span>
+
+            <b>
+                →
+            </b>
+
+        </a>
+
+
+
+        <!-- RESULTS -->
+
+        <a
+            class="admin-action"
+            href="{{ url_for('admin_results') }}">
+
+            <span class="admin-action-icon">
+                ◷
+            </span>
+
+            <span>
+
+                <strong>
+                    View Results
+                </strong>
+
+                <small>
+                    Monitor quiz performance
+                </small>
+
+            </span>
+
+            <b>
+                →
+            </b>
+
+        </a>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         ADMIN NAVIGATION
+    ================================================== -->
+
+    <div class="admin-info-grid">
+
+
+        <div class="admin-info-card">
+
+            <span class="info-card-icon">
+                💡
+            </span>
+
+            <div>
+
+                <strong>
+                    Content Management
+                </strong>
+
+                <p>
+                    Add categories, create tests and
+                    manage all quiz questions directly
+                    from the administrator panel.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-info-card">
+
+            <span class="info-card-icon">
+                📈
+            </span>
+
+            <div>
+
+                <strong>
+                    Performance Tracking
+                </strong>
+
+                <p>
+                    View user attempts, scores,
+                    percentages and complete result
+                    history from the Results section.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+

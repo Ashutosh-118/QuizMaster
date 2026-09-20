@@ -1,0 +1,201 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+{{ category_name }} — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section tests-section">
+
+
+    <!-- =================================================
+         BACK LINK
+    ================================================== -->
+
+    <a class="back-link"
+       href="{{ url_for('home') }}">
+
+        ← All Categories
+
+    </a>
+
+
+
+    <!-- =================================================
+         CATEGORY HEADER
+    ================================================== -->
+
+    <div class="section-head">
+
+        <div>
+
+            <span class="eyebrow">
+                CATEGORY
+            </span>
+
+            <h1>
+                {{ category_name }}
+            </h1>
+
+        </div>
+
+
+        <div class="tests-summary">
+
+            <strong>
+                {{ tests|length }}
+            </strong>
+
+            <span>
+                Tests Available
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         TEST GRID
+    ================================================== -->
+
+    {% if tests %}
+
+
+    <div class="test-grid">
+
+
+        {% for test in tests %}
+
+
+        <a class="test-card"
+           href="{{ url_for(
+               'test',
+               category_id=category,
+               test_id=test.id
+           ) }}">
+
+
+            <!-- TEST NUMBER -->
+
+            <div class="test-number">
+
+                {{ "%02d"|format(loop.index) }}
+
+            </div>
+
+
+
+            <!-- TEST INFORMATION -->
+
+            <div class="test-info">
+
+                <span class="card-kicker">
+
+                    {{ category_name|upper }}
+
+                </span>
+
+
+                <h3>
+
+                    {{ test.test_name }}
+
+                </h3>
+
+
+                <div class="test-meta">
+
+                    <span>
+                        📝
+                        {{ test.question_count }}
+                        Questions
+                    </span>
+
+                    <span>
+                        ⏱ Practice
+                    </span>
+
+                </div>
+
+
+                <span class="card-link">
+
+                    Start Test
+
+                    <span>
+                        →
+                    </span>
+
+                </span>
+
+            </div>
+
+
+
+            <!-- ARROW -->
+
+            <span class="category-arrow">
+
+                ↗
+
+            </span>
+
+
+        </a>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- =================================================
+         EMPTY STATE
+    ================================================== -->
+
+    <div class="empty">
+
+
+        <div class="empty-icon">
+            📚
+        </div>
+
+
+        <h3>
+            No tests available
+        </h3>
+
+
+        <p>
+            The administrator has not added
+            any tests to this category yet.
+        </p>
+
+
+        <a class="btn btn-primary"
+           href="{{ url_for('home') }}">
+
+            ← Back to Categories
+
+        </a>
+
+
+    </div>
+
+
+    {% endif %}
+
+
+</section>
+
+{% endblock %}
+

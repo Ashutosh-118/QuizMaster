@@ -1,0 +1,335 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Users — Admin — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section admin-content-section">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="admin-head">
+
+        <div>
+
+            <span class="eyebrow">
+                USER MANAGEMENT
+            </span>
+
+            <h1>
+                Registered Users
+            </h1>
+
+            <p class="muted">
+                View all users registered on QuizMaster.
+            </p>
+
+        </div>
+
+
+        <a
+            class="back-link"
+            href="{{ url_for('admin_dashboard') }}">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         USER SUMMARY
+    ================================================== -->
+
+    <div class="content-summary">
+
+        <div>
+
+            <span class="summary-icon">
+                👥
+            </span>
+
+            <div>
+
+                <strong>
+                    {{ users|length }}
+                </strong>
+
+                <span>
+                    Registered Users
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <p>
+            Monitor registered accounts and
+            their quiz activity.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         USERS TABLE
+    ================================================== -->
+
+    <div class="table-card">
+
+
+        <div class="card-heading">
+
+            <div class="card-heading-icon">
+                👥
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    ACCOUNTS
+                </span>
+
+                <h2>
+                    All Users
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-scroll">
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            User
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Attempts
+                        </th>
+
+                        <th>
+                            Joined
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for user in users %}
+
+
+                    <tr>
+
+
+                        <!-- USER ID -->
+
+                        <td>
+
+                            <span class="table-id">
+
+                                #{{ user.id }}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- USER -->
+
+                        <td>
+
+                            <div class="table-user">
+
+                                <div class="table-avatar">
+
+                                    {{ user.name[0]|upper }}
+
+                                </div>
+
+
+                                <div>
+
+                                    <strong>
+                                        {{ user.name }}
+                                    </strong>
+
+                                    <small>
+                                        QuizMaster User
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+
+                        <!-- EMAIL -->
+
+                        <td>
+
+                            <span class="table-email">
+
+                                {{ user.email }}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- ATTEMPTS -->
+
+                        <td>
+
+                            <span class="badge">
+
+                                {{ user.attempts }}
+
+                                {% if user.attempts == 1 %}
+                                    Attempt
+                                {% else %}
+                                    Attempts
+                                {% endif %}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- JOINED -->
+
+                        <td>
+
+                            <span class="date-text">
+
+                                {{ user.created_at.strftime(
+                                    '%d %b %Y'
+                                ) }}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <span class="status-active">
+
+                                <span class="status-dot-small"></span>
+
+                                Active
+
+                            </span>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% else %}
+
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="table-empty">
+
+                            No registered users found.
+
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         INFORMATION
+    ================================================== -->
+
+    <div class="admin-info-card">
+
+        <span class="info-card-icon">
+            ℹ
+        </span>
+
+
+        <div>
+
+            <strong>
+                User Activity
+            </strong>
+
+            <p>
+                The Attempts column shows how many quizzes
+                each user has submitted. Quiz results can
+                be viewed in the Results section.
+            </p>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+    {% block title %}
+    QuizMaster
+    {% endblock %}
+</title>
+
+<link rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='quizmaster-icon.png') }}">
+      
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+<div class="nav-container">
+
+    <!-- LOGO -->
+
+    <a href="{{ url_for('home') }}"
+       class="brand">
+
+        <span class="brand-icon">
+            Q
+        </span>
+
+        <span class="brand-text">
+            Quiz<span>Master</span>
+        </span>
+
+    </a>
+
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open menu">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </button>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="nav-menu"
+         id="navMenu">
+
+        {% if is_admin %}
+
+            <a href="{{ url_for('admin_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('admin_categories') }}">
+                Categories
+            </a>
+
+            <a href="{{ url_for('admin_tests') }}">
+                Tests
+            </a>
+
+            <a href="{{ url_for('admin_questions') }}">
+                Add Question
+            </a>
+
+            <a href="{{ url_for('admin_manage_questions') }}">
+                Questions
+            </a>
+
+            <a href="{{ url_for('admin_users') }}">
+                Users
+            </a>
+
+            <a href="{{ url_for('admin_results') }}">
+                Results
+            </a>
+
+            <a href="{{ url_for('admin_logout') }}"
+               class="nav-logout">
+                Logout
+            </a>
+
+
+        {% elif is_user %}
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                Profile
+            </a>
+
+            <a href="{{ url_for('change_password') }}">
+                Password
+            </a>
+
+            <span class="nav-user">
+                Hi, {{ session.get('user_name', 'User') }}
+            </span>
+
+            <a href="{{ url_for('logout') }}"
+               class="nav-logout">
+                Logout
+            </a>
+
+
+        {% else %}
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+            <a href="{{ url_for('register') }}"
+               class="nav-register">
+                Create Account
+            </a>
+
+        {% endif %}
+
+    </nav>
+
+</div>
+
+
+</header>
+
+<!-- =====================================================
+     FLASH MESSAGES
+===================================================== -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+
+{% if messages %}
+
+    <div class="flash-container">
+
+        {% for category, message in messages %}
+
+            <div class="flash-message {{ category }}">
+
+                <span>
+                    {{ message }}
+                </span>
+
+                <button type="button"
+                        onclick="this.parentElement.remove()">
+                    ×
+                </button>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endif %}
+
+
+{% endwith %}
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+{% block content %}
+{% endblock %}
+
+
+</main>
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+
+<div class="footer-main">
+
+    <!-- BRAND -->
+
+    <div class="footer-brand">
+
+        <a href="{{ url_for('home') }}"
+           class="footer-logo">
+
+            <span class="footer-logo-mark">
+                Q
+            </span>
+
+            <span class="footer-logo-text">
+                Quiz<span>Master</span>
+            </span>
+
+        </a>
+
+        <p class="footer-tagline">
+            Learn smarter. Practice better.
+            Improve every day.
+        </p>
+
+    </div>
+
+
+    <!-- QUICK LINKS -->
+
+    <div class="footer-column">
+
+        <h4>
+            Quick Links
+        </h4>
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        {% if is_user %}
+
+            <a href="{{ url_for('profile') }}">
+                Profile
+            </a>
+
+            <a href="{{ url_for('change_password') }}">
+                Change Password
+            </a>
+
+        {% else %}
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+            <a href="{{ url_for('register') }}">
+                Register
+            </a>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- PLATFORM -->
+
+    <div class="footer-column">
+
+        <h4>
+            Platform
+        </h4>
+
+        <span>
+            Multiple Categories
+        </span>
+
+        <span>
+            15 Questions / Test
+        </span>
+
+        <span>
+            Track Results
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER BOTTOM -->
+
+<div class="footer-bottom">
+
+    <p>
+        © 2026
+        <strong>QuizMaster</strong>.
+        All rights reserved.
+    </p>
+
+    <span>
+        Learn • Practice • Improve
+    </span>
+
+</div>
+
+
+</footer>
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

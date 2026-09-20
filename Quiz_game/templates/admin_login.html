@@ -1,0 +1,265 @@
+ 
+{% extends "base.html" %}
+
+{% block title %}
+Admin Login — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<div class="auth-page admin-page">
+
+    <div class="auth-wrap">
+
+
+        <!-- =================================================
+             ADMIN INTRO
+        ================================================== -->
+
+        <div class="auth-intro">
+
+            <span class="eyebrow">
+                ADMIN CONSOLE
+            </span>
+
+            <h1>
+                Manage your
+                <span>quiz platform.</span>
+            </h1>
+
+            <p>
+                Access the administrator dashboard to
+                manage categories, tests, questions,
+                users and quiz results.
+            </p>
+
+
+            <div class="security-card">
+
+                <div class="security-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <strong>
+                        Administrator Access
+                    </strong>
+
+                    <p>
+                        This area is restricted to
+                        authorized administrators.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="security-points">
+
+                <div>
+
+                    <span>✓</span>
+
+                    <p>
+                        Manage quiz categories
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <span>✓</span>
+
+                    <p>
+                        Add and edit questions
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <span>✓</span>
+
+                    <p>
+                        View users and results
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ADMIN LOGIN CARD
+        ================================================== -->
+
+        <div class="auth-card admin-auth">
+
+
+            <div class="auth-card-head">
+
+                <div class="auth-logo admin-logo">
+                    ⚡
+                </div>
+
+
+                <div>
+
+                    <span class="eyebrow">
+                        ADMIN
+                    </span>
+
+                    <h2>
+                        Administrator Login
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <p class="muted">
+                Enter your administrator credentials
+                to continue.
+            </p>
+
+
+
+            <!-- =================================================
+                 LOGIN FORM
+            ================================================== -->
+
+            <form
+                method="POST"
+                class="form"
+                autocomplete="off">
+
+
+                <label>
+
+                    <span>
+                        Username
+                    </span>
+
+
+                    <div class="input-wrap">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="Enter admin username"
+                            autocomplete="username"
+                            required>
+
+                    </div>
+
+                </label>
+
+
+
+                <label>
+
+                    <span>
+                        Password
+                    </span>
+
+
+                    <div class="input-wrap">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+
+                        <input
+                            type="password"
+                            name="password"
+                            id="adminPassword"
+                            placeholder="Enter admin password"
+                            autocomplete="current-password"
+                            required>
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="adminPassword"
+                            aria-label="Show password">
+
+                            👁
+
+                        </button>
+
+                    </div>
+
+                </label>
+
+
+
+                <button
+                    class="btn btn-primary full"
+                    type="submit">
+
+                    Enter Dashboard
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- =================================================
+                 BACK TO WEBSITE
+            ================================================== -->
+
+            <div class="auth-bottom">
+
+                <a href="{{ url_for('home') }}">
+
+                    ← Back to Website
+
+                </a>
+
+            </div>
+
+
+            <div class="recovery-note">
+
+                <span>
+                    🔐
+                </span>
+
+                <p>
+                    Administrator credentials are stored
+                    securely using password hashing.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+

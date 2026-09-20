@@ -1,0 +1,462 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Tests — Admin — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section admin-content-section">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="admin-head">
+
+        <div>
+
+            <span class="eyebrow">
+                CONTENT MANAGEMENT
+            </span>
+
+            <h1>
+                Tests
+            </h1>
+
+            <p class="muted">
+                Create and manage tests for every category.
+            </p>
+
+        </div>
+
+
+        <a
+            class="back-link"
+            href="{{ url_for('admin_dashboard') }}">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CREATE TEST
+    ================================================== -->
+
+    <div class="form-card wide">
+
+
+        <div class="card-heading">
+
+            <div class="card-heading-icon">
+                ＋
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    NEW TEST
+                </span>
+
+                <h2>
+                    Create Test
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <p class="muted">
+            Select a category and give your new test a name.
+        </p>
+
+
+        <form
+            method="POST"
+            class="inline-form"
+            autocomplete="off">
+
+
+            <!-- CATEGORY -->
+
+            <label>
+
+                <span>
+                    Category
+                </span>
+
+
+                <select
+                    name="category_id"
+                    required>
+
+                    <option value="" disabled selected>
+                        Select category
+                    </option>
+
+
+                    {% for category in categories %}
+
+                    <option value="{{ category.id }}">
+
+                        {{ category.name }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </label>
+
+
+
+            <!-- TEST NAME -->
+
+            <label>
+
+                <span>
+                    Test Name
+                </span>
+
+
+                <input
+                    type="text"
+                    name="test_name"
+                    placeholder="e.g. Test 8"
+                    maxlength="100"
+                    required>
+
+            </label>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                class="btn btn-primary"
+                type="submit">
+
+                Create Test
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+        </form>
+
+
+        <div class="form-hint">
+
+            <span>
+                💡
+            </span>
+
+            <p>
+                After creating a test, go to
+                <strong>Add Question</strong>
+                to add MCQs to it.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         ALL TESTS
+    ================================================== -->
+
+    <div class="table-card">
+
+
+        <div class="card-heading">
+
+            <div class="card-heading-icon">
+                🎯
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    AVAILABLE TESTS
+                </span>
+
+                <h2>
+                    All Tests
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-scroll">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Test
+                        </th>
+
+                        <th>
+                            Questions
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for test in tests %}
+
+
+                    <tr>
+
+
+                        <!-- ID -->
+
+                        <td>
+
+                            <span class="table-id">
+                                #{{ test.id }}
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- CATEGORY -->
+
+                        <td>
+
+                            <span class="table-category">
+                                {{ test.category_name }}
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- TEST -->
+
+                        <td>
+
+                            <strong>
+                                {{ test.test_name }}
+                            </strong>
+
+                        </td>
+
+
+
+                        <!-- QUESTION COUNT -->
+
+                        <td>
+
+                            <span class="badge">
+
+                                {{ test.question_count }}
+
+                                {% if test.question_count == 1 %}
+                                    Question
+                                {% else %}
+                                    Questions
+                                {% endif %}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+
+                            {% if test.question_count >= 15 %}
+
+                                <span class="badge badge-success">
+                                    Ready
+                                </span>
+
+                            {% elif test.question_count > 0 %}
+
+                                <span class="badge badge-warning">
+                                    Incomplete
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-danger">
+                                    Empty
+                                </span>
+
+                            {% endif %}
+
+
+                        </td>
+
+
+
+                        <!-- DELETE -->
+
+                        <td>
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'delete_test',
+                                    test_id=test.id
+                                ) }}"
+                                onsubmit="return confirm(
+                                    'Delete this test and all its questions?'
+                                )">
+
+
+                                <button
+                                    type="submit"
+                                    class="icon-delete">
+
+                                    Delete
+
+                                </button>
+
+
+                            </form>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% else %}
+
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="table-empty">
+
+                            No tests available.
+
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         INFORMATION
+    ================================================== -->
+
+    <div class="admin-info-grid">
+
+
+        <div class="admin-info-card">
+
+            <span class="info-card-icon">
+                🎯
+            </span>
+
+
+            <div>
+
+                <strong>
+                    15 Questions Per Test
+                </strong>
+
+                <p>
+                    A test becomes ready when it contains
+                    15 questions. You can add questions
+                    from the Add Question section.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-info-card">
+
+            <span class="info-card-icon">
+                🗑️
+            </span>
+
+
+            <div>
+
+                <strong>
+                    Delete Test
+                </strong>
+
+                <p>
+                    Deleting a test also removes its
+                    questions and related results because
+                    of the database cascade rules.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+

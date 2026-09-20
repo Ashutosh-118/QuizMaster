@@ -1,0 +1,235 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Result — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<div class="result-wrap">
+
+
+    <!-- =================================================
+         RESULT CARD
+    ================================================== -->
+
+    <div class="result-card">
+
+
+        <span class="eyebrow">
+            TEST COMPLETE
+        </span>
+
+
+        <div class="result-icon">
+            ✓
+        </div>
+
+
+        <h1>
+            {{ test_name }}
+        </h1>
+
+
+        <p class="muted">
+            {{ category_name }}
+        </p>
+
+
+
+        <!-- =================================================
+             SCORE
+        ================================================== -->
+
+        <div class="result-ring">
+
+            <strong>
+                {{ percentage }}%
+            </strong>
+
+            <span>
+                Score
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             RESULT MESSAGE
+        ================================================== -->
+
+        {% if percentage >= 80 %}
+
+            <div class="result-message success">
+
+                <strong>
+                    Excellent work!
+                </strong>
+
+                <span>
+                    You performed really well.
+                    Keep up the great work!
+                </span>
+
+            </div>
+
+        {% elif percentage >= 50 %}
+
+            <div class="result-message warning">
+
+                <strong>
+                    Good attempt!
+                </strong>
+
+                <span>
+                    You have a solid start.
+                    Keep practicing to improve further.
+                </span>
+
+            </div>
+
+        {% else %}
+
+            <div class="result-message danger">
+
+                <strong>
+                    Keep practicing!
+                </strong>
+
+                <span>
+                    Don't give up. Practice more
+                    and try the test again.
+                </span>
+
+            </div>
+
+        {% endif %}
+
+
+
+        <!-- =================================================
+             RESULT STATS
+        ================================================== -->
+
+        <div class="result-stats">
+
+
+            <div>
+
+                <strong>
+                    {{ score }}
+                </strong>
+
+                <span>
+                    Correct
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    {{ total - score }}
+                </strong>
+
+                <span>
+                    Incorrect
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    {{ total }}
+                </strong>
+
+                <span>
+                    Total
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ACTION BUTTONS
+        ================================================== -->
+
+        <div class="result-actions">
+
+
+            <a
+                class="btn btn-primary"
+                href="{{ url_for(
+                    'test',
+                    category_id=category,
+                    test_id=test_id
+                ) }}">
+
+                Try Again
+                <span>↻</span>
+
+            </a>
+
+
+            <a
+                class="btn btn-ghost"
+                href="{{ url_for(
+                    'category',
+                    category_id=category
+                ) }}">
+
+                More Tests
+                <span>→</span>
+
+            </a>
+
+
+            <a
+                class="btn btn-ghost"
+                href="{{ url_for('profile') }}">
+
+                My Results
+                <span>↗</span>
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             RESULT FOOTER
+        ================================================== -->
+
+        <div class="result-footer">
+
+            <span>
+                ✓
+            </span>
+
+            <p>
+                Your result has been saved
+                to your profile.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,319 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Create Account — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="auth-wrap">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="auth-intro">
+
+            <span class="eyebrow">
+                JOIN QUIZMASTER
+            </span>
+
+            <h1>
+                Start your
+                <span>quiz journey.</span>
+            </h1>
+
+            <p>
+                Create your account and get access
+                to all categories, tests and your
+                personal result history.
+            </p>
+
+
+            <div class="auth-benefits">
+
+                <div class="auth-benefit">
+
+                    <span class="benefit-icon">
+                        ✓
+                    </span>
+
+                    <div>
+                        <strong>
+                            Multiple Categories
+                        </strong>
+
+                        <small>
+                            Practice different subjects
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="auth-benefit">
+
+                    <span class="benefit-icon">
+                        ✓
+                    </span>
+
+                    <div>
+                        <strong>
+                            Track Your Progress
+                        </strong>
+
+                        <small>
+                            Save and view your results
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="auth-benefit">
+
+                    <span class="benefit-icon">
+                        ✓
+                    </span>
+
+                    <div>
+                        <strong>
+                            Unlimited Practice
+                        </strong>
+
+                        <small>
+                            Attempt available tests anytime
+                        </small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- REGISTER CARD -->
+
+        <div class="auth-card">
+
+            <div class="auth-card-head">
+
+                <div class="auth-logo">
+                    Q
+                </div>
+
+                <div>
+
+                    <span class="eyebrow">
+                        ACCOUNT
+                    </span>
+
+                    <h2>
+                        Create account
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <p class="muted">
+                Enter your details to get started.
+            </p>
+
+
+            <!-- REGISTER FORM -->
+
+            <form method="POST"
+                  class="form"
+                  autocomplete="off">
+
+
+                <!-- NAME -->
+
+                <label>
+
+                    <span>
+                        Full name
+                    </span>
+
+                    <div class="input-wrap">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required>
+
+                    </div>
+
+                </label>
+
+
+                <!-- EMAIL -->
+
+                <label>
+
+                    <span>
+                        Email address
+                    </span>
+
+                    <div class="input-wrap">
+
+                        <span class="input-icon">
+                            ✉
+                        </span>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required>
+
+                    </div>
+
+                </label>
+
+
+                <!-- PASSWORD -->
+
+                <label>
+
+                    <span>
+                        Password
+                    </span>
+
+                    <div class="input-wrap">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            name="password"
+                            id="registerPassword"
+                            placeholder="Minimum 6 characters"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required>
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="registerPassword"
+                            aria-label="Show password">
+
+                            👁
+
+                        </button>
+
+                    </div>
+
+                </label>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <label>
+
+                    <span>
+                        Confirm password
+                    </span>
+
+                    <div class="input-wrap">
+
+                        <span class="input-icon">
+                            🔐
+                        </span>
+
+                        <input
+                            type="password"
+                            name="confirm_password"
+                            id="confirmPassword"
+                            placeholder="Re-enter your password"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required>
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="confirmPassword"
+                            aria-label="Show password">
+
+                            👁
+
+                        </button>
+
+                    </div>
+
+                </label>
+
+
+                <!-- PASSWORD INFO -->
+
+                <div class="password-info">
+
+                    <span>
+                        ✓
+                    </span>
+
+                    Password must contain at least
+                    6 characters.
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    class="btn btn-primary full"
+                    type="submit">
+
+                    Create Account
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+            </form>
+
+
+            <!-- LOGIN LINK -->
+
+            <div class="auth-bottom">
+
+                <span>
+                    Already have an account?
+                </span>
+
+                <a href="{{ url_for('login') }}">
+                    Sign in
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+

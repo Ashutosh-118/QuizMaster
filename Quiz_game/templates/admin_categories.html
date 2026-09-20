@@ -1,0 +1,350 @@
+ 
+{% extends "base.html" %}
+
+{% block title %}
+Categories — Admin — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section admin-content-section">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="admin-head">
+
+        <div>
+
+            <span class="eyebrow">
+                CONTENT MANAGEMENT
+            </span>
+
+            <h1>
+                Categories
+            </h1>
+
+            <p class="muted">
+                Create and manage quiz categories.
+            </p>
+
+        </div>
+
+
+        <a
+            class="back-link"
+            href="{{ url_for('admin_dashboard') }}">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ADD CATEGORY + CATEGORY LIST
+    ================================================== -->
+
+    <div class="split-grid">
+
+
+        <!-- =================================================
+             ADD CATEGORY
+        ================================================== -->
+
+        <div class="form-card">
+
+            <div class="card-heading">
+
+                <div class="card-heading-icon">
+                    ＋
+                </div>
+
+                <div>
+
+                    <span class="eyebrow">
+                        NEW CATEGORY
+                    </span>
+
+                    <h2>
+                        Add Category
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <p class="muted">
+                Create a new subject for your quiz platform.
+            </p>
+
+
+            <form
+                method="POST"
+                class="form"
+                autocomplete="off">
+
+
+                <label>
+
+                    <span>
+                        Category Name
+                    </span>
+
+
+                    <div class="input-wrap">
+
+                        <span class="input-icon">
+                            📚
+                        </span>
+
+
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="e.g. Mathematics"
+                            maxlength="100"
+                            required>
+
+                    </div>
+
+                </label>
+
+
+                <button
+                    class="btn btn-primary"
+                    type="submit">
+
+                    Add Category
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+            </form>
+
+
+            <div class="form-hint">
+
+                <span>
+                    💡
+                </span>
+
+                <p>
+                    After creating a category, you can add
+                    tests from the Tests section.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             EXISTING CATEGORIES
+        ================================================== -->
+
+        <div class="table-card">
+
+
+            <div class="card-heading">
+
+                <div class="card-heading-icon">
+                    ☷
+                </div>
+
+                <div>
+
+                    <span class="eyebrow">
+                        AVAILABLE
+                    </span>
+
+                    <h2>
+                        Existing Categories
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-scroll">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                #
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Tests
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for category in categories %}
+
+
+                        <tr>
+
+                            <td>
+
+                                <span class="table-id">
+                                    {{ "%02d"|format(loop.index) }}
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <strong>
+                                    {{ category.name }}
+                                </strong>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge">
+
+                                    {{ category.test_count }}
+
+                                    {% if category.test_count == 1 %}
+                                        Test
+                                    {% else %}
+                                        Tests
+                                    {% endif %}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for(
+                                        'delete_category',
+                                        category_id=category.id
+                                    ) }}"
+                                    onsubmit="return confirm(
+                                        'Delete this category and all its tests and questions?'
+                                    )">
+
+
+                                    <button
+                                        type="submit"
+                                        class="icon-delete">
+
+                                        Delete
+
+                                    </button>
+
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+
+                        {% else %}
+
+
+                        <tr>
+
+                            <td
+                                colspan="4"
+                                class="table-empty">
+
+                                No categories available.
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         INFORMATION CARD
+    ================================================== -->
+
+    <div class="admin-info-card">
+
+
+        <span class="info-card-icon">
+            ℹ
+        </span>
+
+
+        <div>
+
+            <strong>
+                How category management works
+            </strong>
+
+
+            <p>
+                First create a category, then create
+                tests inside that category. Questions
+                can then be added to each test from the
+                Add Question section.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,480 @@
+ 
+{% extends "base.html" %}
+
+{% block title %}
+My Profile — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section profile-section">
+
+
+    <!-- =================================================
+         PROFILE HEADER
+    ================================================== -->
+
+    <div class="profile-head">
+
+        <div class="profile-identity">
+
+            <div class="profile-avatar">
+
+                {{ user.name[0]|upper }}
+
+            </div>
+
+
+            <div class="profile-details">
+
+                <span class="eyebrow">
+                    MY ACCOUNT
+                </span>
+
+                <h1>
+                    {{ user.name }}
+                </h1>
+
+                <p class="muted">
+                    {{ user.email }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-actions">
+
+            <a class="btn btn-ghost"
+               href="{{ url_for('change_password') }}">
+
+                🔒 Change Password
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PROFILE STATS
+    ================================================== -->
+
+    {% set total_attempts = results|length %}
+
+    {% set total_correct = 0 %}
+
+    {% set total_questions = 0 %}
+
+
+    {% for result in results %}
+
+        {% set total_correct =
+            total_correct + result.score
+        %}
+
+        {% set total_questions =
+            total_questions + result.total
+        %}
+
+    {% endfor %}
+
+
+    <div class="profile-stats">
+
+
+        <div class="profile-stat-card">
+
+            <div class="profile-stat-icon">
+                📝
+            </div>
+
+            <div>
+
+                <span>
+                    Tests Attempted
+                </span>
+
+                <strong>
+                    {{ total_attempts }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-stat-card">
+
+            <div class="profile-stat-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <span>
+                    Correct Answers
+                </span>
+
+                <strong>
+                    {{ total_correct }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-stat-card">
+
+            <div class="profile-stat-icon">
+                🎯
+            </div>
+
+            <div>
+
+                <span>
+                    Questions Solved
+                </span>
+
+                <strong>
+                    {{ total_questions }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-stat-card">
+
+            <div class="profile-stat-icon">
+                🗓️
+            </div>
+
+            <div>
+
+                <span>
+                    Member Since
+                </span>
+
+                <strong class="date-stat">
+
+                    {{ user.created_at.strftime('%d %b %Y') }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         RESULT HISTORY
+    ================================================== -->
+
+    <div class="table-card profile-results">
+
+
+        <div class="section-head compact">
+
+            <div>
+
+                <span class="eyebrow">
+                    PERFORMANCE
+                </span>
+
+                <h2>
+                    Result History
+                </h2>
+
+            </div>
+
+
+            <span class="result-count">
+
+                {{ total_attempts }}
+                attempt{% if total_attempts != 1 %}s{% endif %}
+
+            </span>
+
+        </div>
+
+
+        {% if results %}
+
+
+        <div class="table-scroll">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Test
+                        </th>
+
+                        <th>
+                            Score
+                        </th>
+
+                        <th>
+                            Percentage
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for result in results %}
+
+
+                    <tr>
+
+
+                        <td>
+
+                            <span class="table-category">
+
+                                {{ result.category_name }}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+
+                                {{ result.test_name }}
+
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="score-text">
+
+                                {{ result.score }}
+                                /
+                                {{ result.total }}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+
+                            {% if result.percentage >= 80 %}
+
+                                <span class="badge badge-success">
+
+                                    {{ result.percentage }}%
+
+                                </span>
+
+                            {% elif result.percentage >= 50 %}
+
+                                <span class="badge badge-warning">
+
+                                    {{ result.percentage }}%
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-danger">
+
+                                    {{ result.percentage }}%
+
+                                </span>
+
+                            {% endif %}
+
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="date-text">
+
+                                {{ result.created_at.strftime(
+                                    '%d %b %Y, %I:%M %p'
+                                ) }}
+
+                            </span>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- EMPTY RESULT STATE -->
+
+        <div class="empty profile-empty">
+
+            <div class="empty-icon">
+                📊
+            </div>
+
+            <h3>
+                No quiz attempts yet
+            </h3>
+
+            <p>
+                Complete your first test and
+                your result will appear here.
+            </p>
+
+            <a class="btn btn-primary"
+               href="{{ url_for('home') }}">
+
+                Explore Tests
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         ACCOUNT INFORMATION
+    ================================================== -->
+
+    <div class="account-info-card">
+
+
+        <div class="account-info-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    ACCOUNT
+                </span>
+
+                <h2>
+                    Account Information
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="account-info-grid">
+
+
+            <div class="account-info-item">
+
+                <span>
+                    Full Name
+                </span>
+
+                <strong>
+                    {{ user.name }}
+                </strong>
+
+            </div>
+
+
+            <div class="account-info-item">
+
+                <span>
+                    Email Address
+                </span>
+
+                <strong>
+                    {{ user.email }}
+                </strong>
+
+            </div>
+
+
+            <div class="account-info-item">
+
+                <span>
+                    Account Status
+                </span>
+
+                <strong class="status-active">
+
+                    <span class="status-dot-small"></span>
+
+                    Active
+
+                </strong>
+
+            </div>
+
+
+            <div class="account-info-item">
+
+                <span>
+                    Member Since
+                </span>
+
+                <strong>
+                    {{ user.created_at.strftime('%d %B %Y') }}
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+

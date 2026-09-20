@@ -1,0 +1,412 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Results — Admin — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section admin-content-section">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="admin-head">
+
+        <div>
+
+            <span class="eyebrow">
+                PERFORMANCE ANALYTICS
+            </span>
+
+            <h1>
+                Quiz Results
+            </h1>
+
+            <p class="muted">
+                View all quiz attempts and performance
+                across the platform.
+            </p>
+
+        </div>
+
+
+        <a
+            class="back-link"
+            href="{{ url_for('admin_dashboard') }}">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         SUMMARY
+    ================================================== -->
+
+    <div class="content-summary">
+
+        <div>
+
+            <span class="summary-icon">
+                📊
+            </span>
+
+            <div>
+
+                <strong>
+                    {{ results|length }}
+                </strong>
+
+                <span>
+                    Quiz Attempts
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <p>
+            Complete history of submitted quizzes
+            is shown below.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         RESULTS TABLE
+    ================================================== -->
+
+    <div class="table-card">
+
+
+        <div class="card-heading">
+
+            <div class="card-heading-icon">
+                📊
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    ANALYTICS
+                </span>
+
+                <h2>
+                    All Results
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-scroll">
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            User
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Test
+                        </th>
+
+                        <th>
+                            Score
+                        </th>
+
+                        <th>
+                            Percentage
+                        </th>
+
+                        <th>
+                            Date & Time
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for result in results %}
+
+
+                    <tr>
+
+
+                        <!-- =================================================
+                             USER
+                        ================================================== -->
+
+                        <td>
+
+                            <div class="table-user">
+
+                                <div class="table-avatar">
+
+                                    {{ result.name[0]|upper }}
+
+                                </div>
+
+
+                                <div>
+
+                                    <strong>
+                                        {{ result.name }}
+                                    </strong>
+
+                                    <small>
+                                        {{ result.email }}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+
+                        <!-- =================================================
+                             CATEGORY
+                        ================================================== -->
+
+                        <td>
+
+                            <span class="table-category">
+
+                                {{ result.category_name }}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- =================================================
+                             TEST
+                        ================================================== -->
+
+                        <td>
+
+                            <strong>
+
+                                {{ result.test_name }}
+
+                            </strong>
+
+                        </td>
+
+
+
+                        <!-- =================================================
+                             SCORE
+                        ================================================== -->
+
+                        <td>
+
+                            <span class="score-text">
+
+                                {{ result.score }}
+                                /
+                                {{ result.total }}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- =================================================
+                             PERCENTAGE
+                        ================================================== -->
+
+                        <td>
+
+
+                            {% if result.percentage >= 80 %}
+
+                                <span class="badge badge-success">
+
+                                    {{ result.percentage }}%
+
+                                </span>
+
+                            {% elif result.percentage >= 50 %}
+
+                                <span class="badge badge-warning">
+
+                                    {{ result.percentage }}%
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-danger">
+
+                                    {{ result.percentage }}%
+
+                                </span>
+
+                            {% endif %}
+
+
+                        </td>
+
+
+
+                        <!-- =================================================
+                             DATE
+                        ================================================== -->
+
+                        <td>
+
+                            <span class="date-text">
+
+                                {{ result.created_at.strftime(
+                                    '%d %b %Y, %I:%M %p'
+                                ) }}
+
+                            </span>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% else %}
+
+
+                    <!-- =================================================
+                         EMPTY STATE
+                    ================================================== -->
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="table-empty">
+
+                            <div class="table-empty-content">
+
+                                <span>
+                                    📊
+                                </span>
+
+                                <strong>
+                                    No quiz results yet
+                                </strong>
+
+                                <small>
+                                    Results will appear here
+                                    after users complete tests.
+                                </small>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         INFORMATION CARDS
+    ================================================== -->
+
+    <div class="admin-info-grid">
+
+
+        <div class="admin-info-card">
+
+            <span class="info-card-icon">
+                📈
+            </span>
+
+
+            <div>
+
+                <strong>
+                    Performance Tracking
+                </strong>
+
+                <p>
+                    Every submitted quiz is automatically
+                    stored with its score, percentage and
+                    submission time.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-info-card">
+
+            <span class="info-card-icon">
+                👤
+            </span>
+
+
+            <div>
+
+                <strong>
+                    User Results
+                </strong>
+
+                <p>
+                    Users can also see their own previous
+                    attempts from their Profile page.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+

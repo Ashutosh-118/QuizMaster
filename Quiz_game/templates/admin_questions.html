@@ -1,0 +1,400 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Add Question — Admin — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section narrow-section">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="admin-head">
+
+        <div>
+
+            <span class="eyebrow">
+                QUESTION MANAGEMENT
+            </span>
+
+            <h1>
+                Add Question
+            </h1>
+
+            <p class="muted">
+                Create a new multiple-choice question
+                for any available test.
+            </p>
+
+        </div>
+
+
+        <a
+            class="back-link"
+            href="{{ url_for('admin_dashboard') }}">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         QUESTION FORM
+    ================================================== -->
+
+    <div class="form-card question-form-card">
+
+
+        <div class="card-heading">
+
+            <div class="card-heading-icon">
+                ＋
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    NEW QUESTION
+                </span>
+
+                <h2>
+                    Create MCQ
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <p class="muted">
+            Select a test, enter the question and provide
+            four answer options.
+        </p>
+
+
+
+        <form
+            method="POST"
+            class="form"
+            autocomplete="off">
+
+
+            <!-- =================================================
+                 SELECT TEST
+            ================================================== -->
+
+            <label>
+
+                <span>
+                    Select Test
+                </span>
+
+
+                <select
+                    name="test_id"
+                    required>
+
+                    <option
+                        value=""
+                        disabled
+                        selected>
+
+                        Select category / test
+
+                    </option>
+
+
+                    {% for test in tests %}
+
+                    <option value="{{ test.id }}">
+
+                        {{ test.category_name }}
+                        —
+                        {{ test.test_name }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </label>
+
+
+
+            <!-- =================================================
+                 QUESTION
+            ================================================== -->
+
+            <label>
+
+                <span>
+                    Question
+                </span>
+
+
+                <textarea
+                    name="question"
+                    rows="4"
+                    maxlength="2000"
+                    placeholder="Enter your question here..."
+                    required></textarea>
+
+            </label>
+
+
+
+            <!-- =================================================
+                 OPTIONS
+            ================================================== -->
+
+            <div class="option-section">
+
+
+                <div class="form-section-title">
+
+                    <span>
+                        ANSWER OPTIONS
+                    </span>
+
+                    <small>
+                        Enter all four choices
+                    </small>
+
+                </div>
+
+
+                <div class="option-grid">
+
+
+                    <!-- OPTION A -->
+
+                    <label class="admin-option">
+
+                        <span>
+                            Option A
+                        </span>
+
+
+                        <div class="admin-option-input">
+
+                            <span class="option-letter">
+                                A
+                            </span>
+
+                            <input
+                                type="text"
+                                name="option_a"
+                                maxlength="500"
+                                placeholder="Enter option A"
+                                required>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <!-- OPTION B -->
+
+                    <label class="admin-option">
+
+                        <span>
+                            Option B
+                        </span>
+
+
+                        <div class="admin-option-input">
+
+                            <span class="option-letter">
+                                B
+                            </span>
+
+                            <input
+                                type="text"
+                                name="option_b"
+                                maxlength="500"
+                                placeholder="Enter option B"
+                                required>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <!-- OPTION C -->
+
+                    <label class="admin-option">
+
+                        <span>
+                            Option C
+                        </span>
+
+
+                        <div class="admin-option-input">
+
+                            <span class="option-letter">
+                                C
+                            </span>
+
+                            <input
+                                type="text"
+                                name="option_c"
+                                maxlength="500"
+                                placeholder="Enter option C"
+                                required>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <!-- OPTION D -->
+
+                    <label class="admin-option">
+
+                        <span>
+                            Option D
+                        </span>
+
+
+                        <div class="admin-option-input">
+
+                            <span class="option-letter">
+                                D
+                            </span>
+
+                            <input
+                                type="text"
+                                name="option_d"
+                                maxlength="500"
+                                placeholder="Enter option D"
+                                required>
+
+                        </div>
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CORRECT ANSWER
+            ================================================== -->
+
+            <label>
+
+                <span>
+                    Correct Answer
+                </span>
+
+
+                <select
+                    name="correct_answer"
+                    required>
+
+                    <option
+                        value=""
+                        disabled
+                        selected>
+
+                        Select correct option
+
+                    </option>
+
+                    <option value="A">
+                        Option A
+                    </option>
+
+                    <option value="B">
+                        Option B
+                    </option>
+
+                    <option value="C">
+                        Option C
+                    </option>
+
+                    <option value="D">
+                        Option D
+                    </option>
+
+                </select>
+
+            </label>
+
+
+
+            <!-- =================================================
+                 INFORMATION
+            ================================================== -->
+
+            <div class="form-hint">
+
+                <span>
+                    💡
+                </span>
+
+                <p>
+                    Make sure the selected correct answer
+                    exactly matches one of the four options.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SUBMIT
+            ================================================== -->
+
+            <div class="form-actions">
+
+                <a
+                    class="btn btn-ghost"
+                    href="{{ url_for('admin_dashboard') }}">
+
+                    Cancel
+
+                </a>
+
+
+                <button
+                    class="btn btn-primary"
+                    type="submit">
+
+                    Save Question
+
+                    <span>
+                        ✓
+                    </span>
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+

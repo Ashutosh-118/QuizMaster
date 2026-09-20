@@ -1,0 +1,387 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Manage Questions — Admin — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section admin-content-section">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="admin-head">
+
+        <div>
+
+            <span class="eyebrow">
+                QUESTION MANAGEMENT
+            </span>
+
+            <h1>
+                Manage Questions
+            </h1>
+
+            <p class="muted">
+                View, edit and delete quiz questions.
+            </p>
+
+        </div>
+
+
+        <div class="admin-head-actions">
+
+            <a
+                class="btn btn-primary"
+                href="{{ url_for('admin_questions') }}">
+
+                ＋ Add Question
+
+            </a>
+
+
+            <a
+                class="back-link"
+                href="{{ url_for('admin_dashboard') }}">
+
+                ← Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         QUESTION COUNT
+    ================================================== -->
+
+    <div class="content-summary">
+
+        <div>
+
+            <span class="summary-icon">
+                ❓
+            </span>
+
+            <div>
+
+                <strong>
+                    {{ questions|length }}
+                </strong>
+
+                <span>
+                    Questions
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <p>
+            Manage your complete question bank
+            from one place.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         QUESTIONS LIST
+    ================================================== -->
+
+    <div class="question-admin-list">
+
+
+        {% for question in questions %}
+
+
+        <article class="admin-question">
+
+
+            <!-- =================================================
+                 QUESTION TOP
+            ================================================== -->
+
+            <div class="aq-top">
+
+                <span class="badge">
+
+                    {{ question.category_name }}
+
+                    <span>
+                        ·
+                    </span>
+
+                    {{ question.test_name }}
+
+                </span>
+
+
+                <span class="question-id">
+
+                    #{{ question.id }}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUESTION TEXT
+            ================================================== -->
+
+            <h3>
+                {{ question.question }}
+            </h3>
+
+
+
+            <!-- =================================================
+                 OPTIONS
+            ================================================== -->
+
+            <div class="aq-options">
+
+
+                <div
+                    class="
+                        {% if question.correct_answer == 'A' %}
+                            correct-option
+                        {% endif %}
+                    ">
+
+                    <span class="option-letter">
+                        A
+                    </span>
+
+                    <span>
+                        {{ question.option_a }}
+                    </span>
+
+                    {% if question.correct_answer == 'A' %}
+
+                        <small>
+                            ✓ Correct
+                        </small>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <div
+                    class="
+                        {% if question.correct_answer == 'B' %}
+                            correct-option
+                        {% endif %}
+                    ">
+
+                    <span class="option-letter">
+                        B
+                    </span>
+
+                    <span>
+                        {{ question.option_b }}
+                    </span>
+
+                    {% if question.correct_answer == 'B' %}
+
+                        <small>
+                            ✓ Correct
+                        </small>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <div
+                    class="
+                        {% if question.correct_answer == 'C' %}
+                            correct-option
+                        {% endif %}
+                    ">
+
+                    <span class="option-letter">
+                        C
+                    </span>
+
+                    <span>
+                        {{ question.option_c }}
+                    </span>
+
+                    {% if question.correct_answer == 'C' %}
+
+                        <small>
+                            ✓ Correct
+                        </small>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <div
+                    class="
+                        {% if question.correct_answer == 'D' %}
+                            correct-option
+                        {% endif %}
+                    ">
+
+                    <span class="option-letter">
+                        D
+                    </span>
+
+                    <span>
+                        {{ question.option_d }}
+                    </span>
+
+                    {% if question.correct_answer == 'D' %}
+
+                        <small>
+                            ✓ Correct
+                        </small>
+
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BOTTOM ACTIONS
+            ================================================== -->
+
+            <div class="aq-bottom">
+
+
+                <div class="aq-answer">
+
+                    <span>
+                        Correct Answer
+                    </span>
+
+                    <strong>
+                        {{ question.correct_answer }}
+                    </strong>
+
+                </div>
+
+
+                <div class="aq-actions">
+
+
+                    <!-- EDIT -->
+
+                    <a
+                        class="icon-edit"
+                        href="{{ url_for(
+                            'edit_question',
+                            question_id=question.id
+                        ) }}">
+
+                        ✎ Edit
+
+                    </a>
+
+
+
+                    <!-- DELETE -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'delete_question',
+                            question_id=question.id
+                        ) }}"
+                        onsubmit="return confirm(
+                            'Are you sure you want to delete this question?'
+                        )">
+
+
+                        <button
+                            type="submit"
+                            class="icon-delete">
+
+                            🗑 Delete
+
+                        </button>
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+        {% else %}
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <div class="empty">
+
+
+            <div class="empty-icon">
+                ❓
+            </div>
+
+
+            <h3>
+                No questions found
+            </h3>
+
+
+            <p>
+                Start building your question bank
+                by adding your first question.
+            </p>
+
+
+            <a
+                class="btn btn-primary"
+                href="{{ url_for('admin_questions') }}">
+
+                ＋ Add Question
+
+            </a>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+

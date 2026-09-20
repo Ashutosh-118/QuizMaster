@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ test_name }} — QuizMaster
+{% endblock %}
+
+
+{% block content %}
+
+<section class="quiz-shell">
+
+    <!-- =================================================
+         QUIZ HEADER
+    ================================================== -->
+
+    <div class="quiz-top">
+
+        <div>
+
+            <span class="eyebrow">
+                {{ category_name|upper }}
+            </span>
+
+            <h1>
+                {{ test_name }}
+            </h1>
+
+            <p class="muted">
+                Answer all questions and submit your test.
+            </p>
+
+        </div>
+
+
+        <div class="quiz-count">
+
+            <strong id="answeredCount">
+                0
+            </strong>
+
+            /
+            {{ questions|length }}
+
+            <span>
+                answered
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PROGRESS BAR
+    ================================================== -->
+
+    <div class="quiz-progress">
+
+        <div id="quizProgressBar"></div>
+
+    </div>
+
+
+    <!-- =================================================
+         QUIZ FORM
+    ================================================== -->
+
+    <form
+        id="quizForm"
+        method="POST"
+        action="{{ url_for(
+            'result',
+            category_id=category,
+            test_id=test_id
+        ) }}"
+    >
+
+        {% for question in questions %}
+
+            {% set q_index = loop.index0 %}
+
+
+            <!-- =================================================
+                 QUESTION CARD
+            ================================================== -->
+
+            <article class="question-card">
+
+                <!-- QUESTION HEADER -->
+
+                <div class="question-head">
+
+                    <span>
+                        QUESTION
+                        {{ "%02d"|format(loop.index) }}
+                    </span>
+
+                    <span>
+                        {{ loop.index }}
+                        /
+                        {{ questions|length }}
+                    </span>
+
+                </div>
+
+
+                <!-- QUESTION -->
+
+                <h2>
+                    {{ question.question }}
+                </h2>
+
+
+                <!-- =================================================
+                     OPTIONS
+                ================================================== -->
+
+                <div class="options">
+
+
+                    <!-- OPTION A -->
+
+                    <label class="option">
+
+                        <input
+                            id="q{{ q_index }}A"
+                            type="radio"
+                            name="question{{ q_index }}"
+                            value="A"
+                            {% if loop.first %}required{% endif %}
+                        >
+
+                        <span class="option-letter">
+                            A
+                        </span>
+
+                        <span class="option-text">
+                            {{ question.options["A"] }}
+                        </span>
+
+                    </label>
+
+
+                    <!-- OPTION B -->
+
+                    <label class="option">
+
+                        <input
+                            id="q{{ q_index }}B"
+                            type="radio"
+                            name="question{{ q_index }}"
+                            value="B"
+                        >
+
+                        <span class="option-letter">
+                            B
+                        </span>
+
+                        <span class="option-text">
+                            {{ question.options["B"] }}
+                        </span>
+
+                    </label>
+
+
+                    <!-- OPTION C -->
+
+                    <label class="option">
+
+                        <input
+                            id="q{{ q_index }}C"
+                            type="radio"
+                            name="question{{ q_index }}"
+                            value="C"
+                        >
+
+                        <span class="option-letter">
+                            C
+                        </span>
+
+                        <span class="option-text">
+                            {{ question.options["C"] }}
+                        </span>
+
+                    </label>
+
+
+                    <!-- OPTION D -->
+
+                    <label class="option">
+
+                        <input
+                            id="q{{ q_index }}D"
+                            type="radio"
+                            name="question{{ q_index }}"
+                            value="D"
+                        >
+
+                        <span class="option-letter">
+                            D
+                        </span>
+
+                        <span class="option-text">
+                            {{ question.options["D"] }}
+                        </span>
+
+                    </label>
+
+
+                </div>
+
+            </article>
+
+        {% endfor %}
+
+
+        <!-- =================================================
+             SUBMIT AREA
+        ================================================== -->
+
+        <div class="quiz-submit">
+
+            <div class="quiz-submit-info">
+
+                <span class="submit-icon">
+                    ✓
+                </span>
+
+                <div>
+
+                    <strong>
+                        Ready to submit?
+                    </strong>
+
+                    <small>
+                        Make sure you have answered
+                        every question.
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="btn btn-primary"
+                type="submit"
+            >
+
+                Submit Test
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+        </div>
+
+
+    </form>
+
+</section>
+
+{% endblock %}
