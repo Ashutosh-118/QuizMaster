@@ -14,11 +14,15 @@ app = Flask(__name__)
 
 app.secret_key = "quizmaster_change_this_secret_key"
 
+import os
+
 DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",
-    "password": "",
-    "database": "quiz_game"
+    "host": os.getenv("DB_HOST"),
+    "port": int(os.getenv("DB_PORT", "3306")),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "database": os.getenv("DB_NAME", "defaultdb"),
+    "ssl_disabled": False
 }
 
 
